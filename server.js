@@ -11,7 +11,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    hello: () => "Hello world!",
+    hello: () => "Hello noor mohammed.Welcome to the first graphql server",
   },
 };
 
