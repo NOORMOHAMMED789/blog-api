@@ -1,15 +1,20 @@
-const http = require('http')
+const { ApolloServer, gql } = require("apollo-server");
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type':'text/html' })
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
 
-    res.write("<h1>Hello node js servering is running</h1>")
-    res.end()
-})
+const resolvers = {
+  Query: {
+    hello: () => "Hello Noor Mohammed.Welcome to graphql server",
+  },
+};
 
-//specify the port
-const port = 3002
+const server = new ApolloServer({ typeDefs, resolvers });
 
-server.listen(port, () => {
-    console.log(`Server is running on the port ${port}`)
-})
+// Run the server
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
