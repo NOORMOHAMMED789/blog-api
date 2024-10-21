@@ -13,13 +13,19 @@ app.use(express.json())
 //! create a todo
 app.post("/create-blog", async (req, res) => {
   try {
-    console.log(req.body); 
-    const { feature_image, main_content, blog_excerpt, category } = req.body
+    const { title, feature_image, main_content, blog_excerpt, category } =
+      req.body;
+
+    if (!title || !main_content) {
+      return res.status(400).json({ error: "Title and content are required." });
+    }
+
     const newBlog = await pool.query(
-      "INSERT INTO blog (feature_image, main_content, blog_excerpt, category) VALUES ($1, $2, $3, $4) RETURNING *",
-      [feature_image, main_content, blog_excerpt, category]
+      "INSERT INTO blog (title, feature_image, main_content, blog_excerpt, category) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [title, feature_image, main_content, blog_excerpt, category]
     );
-    res.json(newBlog.rows[0])
+
+    res.status(201).json(newBlog.rows[0]);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
@@ -50,11 +56,10 @@ app.get("/get-blog/:id", async (req, res) => {
 //! update a todo
 
 app.put("/update-blog/:id", async (req, res) => {
-  const { id } = req.params; // This is the blog_id
+  const { id } = req.params;
   const { feature_image, main_content, blog_excerpt, category } = req.body;
 
   try {
-    // Update query using blog_id as the identifier
     const query = `
       UPDATE blog
       SET 
@@ -62,7 +67,7 @@ app.put("/update-blog/:id", async (req, res) => {
         main_content = $2, 
         blog_excerpt = $3, 
         category = $4
-      WHERE blog_id = $5  -- Use blog_id instead of id
+      WHERE blog_id = $5
       RETURNING *;
     `;
 
@@ -82,6 +87,7 @@ app.put("/update-blog/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 
 
