@@ -24,16 +24,16 @@ const createBlog = async (req, res) => {
 };
 
 // Get all blogs
-const getAllBlogs = async (req, res) => {
+async function getAllBlogs(req, res) {
   try {
-    const allBlogs = await pool.query("SELECT * FROM blog");
-    console.log("all Blogs -----",allBlogs)
-    res.json(allBlogs.rows);
+    const blogs = await pool.query("SELECT * FROM blogs"); // Adjust your query accordingly
+    res.status(200).json(blogs.rows);
   } catch (error) {
-    console.error(error.message);
+    console.error("Error fetching blogs:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-};
+}
+
 
 // Get a single blog by ID
 const getBlogById = async (req, res) => {

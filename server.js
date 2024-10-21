@@ -12,15 +12,12 @@ const {
 const pool = require("./src/database/db");
 
 // CORS Options
-const corsOptions = {
-  origin: "https://blog-content-platform.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE"], 
-  allowedHeaders: ["Content-Type"]
-};
+// const corsOptions = {
+//   origin: ["http://localhost:3001", "https://blog-content-platform.vercel.app"],
+//   optionsSuccessStatus: 200,
+// };
 
-// Middleware
-app.use(cors(corsOptions));
-app.use(express.json());
+// app.use(cors(corsOptions));
 
 // Routes
 app.post("/create-blog", createBlog);
@@ -31,4 +28,8 @@ app.delete("/delete-blog/:id", deleteBlog);
 
 app.listen(5001, () => {
   console.log(`Port is listening at 5001`);
+});
+
+app.get("/test", (req, res) => {
+  res.send("API is working!");
 });
