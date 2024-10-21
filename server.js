@@ -13,16 +13,16 @@ app.use(express.json())
 //! create a todo
 app.post("/create-blog", async (req, res) => {
   try {
-    const { title, feature_image, main_content, blog_excerpt, category } =
+    const { feature_image, main_content, blog_excerpt, category } =
       req.body;
 
-    if (!title || !main_content) {
-      return res.status(400).json({ error: "Title and content are required." });
+    if (!main_content) {
+      return res.status(400).json({ error: "content are required." });
     }
 
     const newBlog = await pool.query(
-      "INSERT INTO blog (title, feature_image, main_content, blog_excerpt, category) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [title, feature_image, main_content, blog_excerpt, category]
+      "INSERT INTO blog (feature_image, main_content, blog_excerpt, category) VALUES ($1, $2, $3, $4) RETURNING *",
+      [feature_image, main_content, blog_excerpt, category]
     );
 
     res.status(201).json(newBlog.rows[0]);
