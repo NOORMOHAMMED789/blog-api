@@ -9,15 +9,14 @@ const {
   deleteBlog,
 } = require("./src/controllers/blogController");
 
-const pool = require("./src/database/db");
 
 // CORS Options
-// const corsOptions = {
-//   origin: ["http://localhost:3001", "https://blog-content-platform.vercel.app"],
-//   optionsSuccessStatus: 200,
-// };
+const corsOptions = {
+  origin: ["http://localhost:3001", "https://blog-content-platform.vercel.app"],
+  optionsSuccessStatus: 200,
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 // Routes
 app.post("/create-blog", createBlog);
