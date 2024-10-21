@@ -1,5 +1,3 @@
-// src/index.js
-
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -13,8 +11,15 @@ const {
 
 const pool = require("./src/database/db");
 
+// CORS Options
+const corsOptions = {
+  origin: "https://blog-content-platform.vercel.app/",
+  methods: ["GET", "POST", "PUT", "DELETE"], 
+  allowedHeaders: ["Content-Type"]
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes

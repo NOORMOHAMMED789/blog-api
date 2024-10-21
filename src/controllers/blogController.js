@@ -27,6 +27,7 @@ const createBlog = async (req, res) => {
 const getAllBlogs = async (req, res) => {
   try {
     const allBlogs = await pool.query("SELECT * FROM blog");
+    console.log("all Blogs -----",allBlogs)
     res.json(allBlogs.rows);
   } catch (error) {
     console.error(error.message);
