@@ -13,7 +13,7 @@ const pool = require("./src/database/db");
 
 // CORS Options
 const corsOptions = {
-  origin: "https://blog-content-platform.vercel.app/",
+  origin: "https://blog-content-platform.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE"], 
   allowedHeaders: ["Content-Type"]
 };
